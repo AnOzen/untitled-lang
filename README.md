@@ -38,4 +38,4 @@ $$
 \end{align}
 $$
 
-The standalone file for this is in `docs`.
+The standalone file for this is `docs/grammar.md`.
