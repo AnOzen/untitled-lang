@@ -26,14 +26,12 @@ Right now, there is no compiler, so to use the interpreter,
 ## Grammar
 
 Here is the current Grammar:
-$$
-\Large
+$$\Large
 \begin{aligned}\
 [\text{Exit}] &\to \text{exit}([\text{Expr}]);\\
 [\text{Expr}] &\to
 \begin{cases}
 \text{Integer}\\
 \end{cases}
-\end{aligned}
-$$
+\end{aligned}$$
 The standalone file for this is in `docs`.
