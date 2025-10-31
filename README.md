@@ -29,7 +29,7 @@ Here is the current Grammar:
 
 $$
 \Large
-\begin{aligned}\
+\begin{aligned}
 [\text{Exit}] &\to \text{exit}([\text{Expr}]);\\
 [\text{Expr}] &\to
 \begin{cases}
