@@ -2,25 +2,27 @@ package org.AnOzen.ulang.nodes;
 
 import java.util.HashMap;
 
-public class StateExit implements Statement{
+public class StateSet implements Statement{
+    String name;
     Expression expr;
 
-    public StateExit(Expression expr){
+    public StateSet(String name, Expression expr){
+        this.name = name;
         this.expr = expr;
-    }
-
-    public String toString(){
-        return "Exit(" + expr.toString() + ")";
     }
 
     @Override
     public void interpret(HashMap<String, String> environment) {
         String result = expr.interpret(environment);
-        System.exit(Integer.parseInt(result));
+        environment.put(name, result);
     }
 
     @Override
     public void compile() {
-        // TODO: Deal with compiling later...
+
+    }
+
+    public String toString() {
+        return "Set(" + name + "," + expr + ")";
     }
 }

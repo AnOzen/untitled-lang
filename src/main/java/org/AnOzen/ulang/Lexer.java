@@ -3,6 +3,7 @@ package org.AnOzen.ulang;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.UnmappableCharacterException;
 import java.util.ArrayList;
 
 public class Lexer {
@@ -17,23 +18,24 @@ public class Lexer {
         tokens = new ArrayList<>();
     }
 
-    public void tokenize() {
+    public void tokenize() throws Exception {
         char c;
         while(index < rawCode.length()){
             c = consume();
 
             if(Character.isWhitespace(c)) continue;
 
-            if (Character.isLetter(c)) {
+            if (Character.isLetter(c) || c == '_') {
                 StringBuilder word = new StringBuilder(Character.toString(c));
-                while (Character.isLetterOrDigit((c = peek()))) {
+                while (Character.isLetterOrDigit((c = peek())) || c == '_') {
                     consume();
                     word.append(c);
                 }
 
                 switch (word.toString()) {
                     case "exit" -> tokens.add(new Token(TokenType.KEYEXIT, ""));
-                    default -> Utils.ErrorExit(String.format("Unknown word `%s`", word));
+                    case "set" -> tokens.add(new Token(TokenType.KEYSET, ""));
+                    default -> tokens.add(new Token(TokenType.VAR, word.toString()));
                 }
             } else if (Character.isDigit(c)){
                 StringBuilder word = new StringBuilder(Character.toString(c));
@@ -42,16 +44,18 @@ public class Lexer {
                     word.append(c);
                 }
                 tokens.add(new Token(TokenType.INTEGER, word.toString()));
-            } else if (c == ';') {
+            } else if(c == '='){
+                tokens.add(new Token(TokenType.EQ, ""));
+            }
+            else if (c == ';') {
                 tokens.add(new Token(TokenType.SEMI, ""));
             } else {
-                Utils.ErrorExit(String.format("Unknown character `%s`", c));
+                throw new Exception(String.format("Unknown character `%s`", c));
             }
 
         }
         tokens.add(new Token(TokenType.EOF, ""));
     }
-
 
 
 
@@ -65,6 +69,13 @@ public class Lexer {
         if (index >= rawCode.length())
             return 0;
         return rawCode.charAt(index++);
+    }
+
+
+    static void main() throws Exception {
+        Lexer lex = new Lexer("example.u");
+        lex.tokenize();
+        System.out.println(lex.tokens);
     }
 
 }

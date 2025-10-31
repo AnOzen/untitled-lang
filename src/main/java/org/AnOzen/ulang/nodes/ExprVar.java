@@ -2,21 +2,21 @@ package org.AnOzen.ulang.nodes;
 
 import java.util.HashMap;
 
-public class ExprInt implements Expression{
-    int value;
+public class ExprVar implements Expression{
+    String name;
 
-    public ExprInt(int value){
-        this.value = value;
+    public ExprVar(String ident) {
+        name = ident;
     }
 
-    public String toString(){
-        return "Int(" + value + ")";
+    @Override
+    public String toString() {
+        return "Var(" + name + ")";
     }
-
 
     @Override
     public String interpret(HashMap<String, String> environment) {
-        return Integer.toString(value);
+        return environment.get(name);
     }
 
     @Override
