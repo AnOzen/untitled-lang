@@ -14,7 +14,7 @@ This project is written in **Java 25** (Temurin), and the build system used is *
 ## Building (or running, I should say)
 
 The Dependencies needed are:
-* Java 25 SDK (Eclipse Temurin)
+* Java 25 SDK
 
 Right now, there is no compiler, so to use the interpreter,
 
