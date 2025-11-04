@@ -17,7 +17,7 @@ dependencies {
 }
 
 application {
-    mainClass = "org.AnOzen.ulang.Interpreter"
+    mainClass = "org.AnOzen.ulang.Driver"
 }
 
 test {
