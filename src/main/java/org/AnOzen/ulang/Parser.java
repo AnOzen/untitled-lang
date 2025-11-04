@@ -5,13 +5,13 @@ import org.AnOzen.ulang.nodes.*;
 import java.util.ArrayList;
 
 public class Parser {
-    public ArrayList<Statement> statements;
+    public ArrayList<Statement> program;
     ArrayList<Token> tokens;
     int index = 0;
 
     public Parser(ArrayList<Token> tks) {
         tokens = tks;
-        statements = new ArrayList<>();
+        program = new ArrayList<>();
     }
 
     Expression parseExpr(int precL) throws Exception {
@@ -80,11 +80,11 @@ public class Parser {
 
             if (current.type == TokenType.EOF) break;
             switch (current.type) {
-                case KEYEXIT -> statements.add(new StateExit(parseExpr(0)));
+                case KEYEXIT -> program.add(new StateExit(parseExpr(0)));
                 case KEYSET -> {
                     Token name = expectConsume(TokenType.VAR);
                     expectConsume(TokenType.EQ);
-                    statements.add(new StateSet(name.value, parseExpr(0)));
+                    program.add(new StateSet(name.value, parseExpr(0)));
                 }
                 default -> throw new Exception(String.format("Unexpected Token `%s`", current));
             }

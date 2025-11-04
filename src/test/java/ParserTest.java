@@ -11,7 +11,7 @@ public class ParserTest {
             lex.tokenize();
             Parser parser = new Parser(lex.tokens);
             parser.parse();
-            Assertions.assertEquals("[Set(x,Int(0)), Exit(Var(x))]", parser.statements.toString());
+            Assertions.assertEquals("[Set(x,Int(0)), Exit(Var(x))]", parser.program.toString());
         });
     }
 

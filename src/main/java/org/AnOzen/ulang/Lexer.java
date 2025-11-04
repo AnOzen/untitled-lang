@@ -1,6 +1,5 @@
 package org.AnOzen.ulang;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ public class Lexer {
     int index = 0;
 
     public Lexer(String codePath) throws IOException {
-        FileReader reader = new FileReader(new File(codePath));
+        FileReader reader = new FileReader(codePath);
         rawCode = reader.readAllAsString();
         reader.close();
         tokens = new ArrayList<>();
@@ -42,6 +41,7 @@ public class Lexer {
                     case "set" -> tokens.add(new Token(TokenType.KEYSET, ""));
                     default -> tokens.add(new Token(TokenType.VAR, word.toString()));
                 }
+                continue;
             } else if (Character.isDigit(c)) {
                 StringBuilder word = new StringBuilder(Character.toString(c));
                 while (Character.isDigit((c = peek()))) {
@@ -49,26 +49,16 @@ public class Lexer {
                     word.append(c);
                 }
                 tokens.add(new Token(TokenType.INTEGER, word.toString()));
-            } else if (c == '=') {
-                tokens.add(new Token(TokenType.EQ, ""));
-            } else if (c == '+') {
-                tokens.add(new Token(TokenType.PLUS, ""));
-            } else if (c == '-') {
-                tokens.add(new Token(TokenType.MINUS, ""));
-            } else if (c == '*') {
-                tokens.add(new Token(TokenType.STAR, ""));
-            } else if (c == '/') {
-                tokens.add(new Token(TokenType.SLASH, ""));
-            } else if (c == '(') {
-                tokens.add(new Token(TokenType.LPAREN, ""));
-            } else if (c == '%') {
-                tokens.add(new Token(TokenType.PERCENT, ""));
-            } else if (c == ')') {
-                tokens.add(new Token(TokenType.RPAREN, ""));
-            } else if (c == ';') {
-                tokens.add(new Token(TokenType.SEMI, ""));
-            } else {
-                throw new Exception(String.format("Unknown character `%s`", c));
+                continue;
+            }
+            switch (c) {
+                case ';' -> tokens.add(new Token(TokenType.SEMI, ""));
+                case '=' -> tokens.add(new Token(TokenType.EQ, ""));
+                case '+' -> tokens.add(new Token(TokenType.PLUS, ""));
+                case '-' -> tokens.add(new Token(TokenType.MINUS, ""));
+                case '*' -> tokens.add(new Token(TokenType.STAR, ""));
+                case '/' -> tokens.add(new Token(TokenType.SLASH, ""));
+                case '%' -> tokens.add(new Token(TokenType.PERCENT, ""));
             }
 
         }
