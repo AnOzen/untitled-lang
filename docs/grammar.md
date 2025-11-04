@@ -6,6 +6,11 @@ $$
 \begin{cases}
 \text{ExprInt}\\
 \text{ExprVar}\\
+[\text{ExprBin}]\\
 \end{cases}\\
+[\text{ExprBin}] &\to 
+\begin{cases}
+\text{ExprAdd}([\text{Expr}],[\text{Expr}])\\
+\end{cases}
 \end{align}
 $$

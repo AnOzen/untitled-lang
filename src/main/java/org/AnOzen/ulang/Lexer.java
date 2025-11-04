@@ -3,7 +3,6 @@ package org.AnOzen.ulang;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.UnmappableCharacterException;
 import java.util.ArrayList;
 
 public class Lexer {
@@ -46,6 +45,27 @@ public class Lexer {
                 tokens.add(new Token(TokenType.INTEGER, word.toString()));
             } else if(c == '='){
                 tokens.add(new Token(TokenType.EQ, ""));
+            }
+            else if(c == '+'){
+                tokens.add(new Token(TokenType.PLUS, ""));
+            }
+            else if(c == '-'){
+                tokens.add(new Token(TokenType.MINUS, ""));
+            }
+            else if(c == '*'){
+                tokens.add(new Token(TokenType.STAR, ""));
+            }
+            else if(c == '/'){
+                tokens.add(new Token(TokenType.SLASH, ""));
+            }
+            else if(c == '('){
+                tokens.add(new Token(TokenType.LPAREN, ""));
+            }
+            else if(c == '%'){
+                tokens.add(new Token(TokenType.PERCENT, ""));
+            }
+            else if(c == ')'){
+                tokens.add(new Token(TokenType.RPAREN, ""));
             }
             else if (c == ';') {
                 tokens.add(new Token(TokenType.SEMI, ""));

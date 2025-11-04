@@ -4,6 +4,9 @@
       <w>ident</w>
       <w>jvmargs</w>
       <w>keyexit</w>
+      <w>lparen</w>
+      <w>prec</w>
+      <w>rparen</w>
       <w>temurin</w>
     </words>
   </dictionary>

@@ -21,6 +21,7 @@ public class Interpreter {
         lex.tokenize();
         Parser parse = new Parser(lex.tokens);
         parse.parse();
+        System.out.println(parse.statements);
         Interpreter inter = new Interpreter(parse.statements);
         inter.run();
     }
