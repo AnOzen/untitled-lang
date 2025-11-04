@@ -2,27 +2,27 @@ package org.AnOzen.ulang.nodes;
 
 import java.util.HashMap;
 
-public class ExprBin implements Expression{
+public class ExprBin implements Expression {
     Expression lhs;
     Expression rhs;
     BinOpType type;
 
 
-    public String toString() {
-        return "BinOp("+ lhs + "," + type.name() + "," + rhs + ")";
-    }
-
-    public ExprBin(Expression l, Expression r, BinOpType t){
+    public ExprBin(Expression l, Expression r, BinOpType t) {
         lhs = l;
         rhs = r;
         type = t;
+    }
+
+    public String toString() {
+        return "BinOp(" + lhs + "," + type.name() + "," + rhs + ")";
     }
 
     @Override
     public String interpret(HashMap<String, String> environment) {
         String l = lhs.interpret(environment);
         String r = rhs.interpret(environment);
-        switch (type){
+        switch (type) {
             case ADD -> {
                 return Integer.toString(Integer.parseInt(l) + Integer.parseInt(r));
             }

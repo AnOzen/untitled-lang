@@ -2,7 +2,7 @@ package org.AnOzen.ulang.nodes;
 
 import java.util.HashMap;
 
-public class ExprVar implements Expression{
+public class ExprVar implements Expression {
     String name;
 
     public ExprVar(String ident) {

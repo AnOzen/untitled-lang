@@ -2,14 +2,14 @@ package org.AnOzen.ulang.nodes;
 
 import java.util.HashMap;
 
-public class ExprInt implements Expression{
+public class ExprInt implements Expression {
     int value;
 
-    public ExprInt(int value){
+    public ExprInt(int value) {
         this.value = value;
     }
 
-    public String toString(){
+    public String toString() {
         return "Int(" + value + ")";
     }
 

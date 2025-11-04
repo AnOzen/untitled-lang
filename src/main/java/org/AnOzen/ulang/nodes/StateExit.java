@@ -2,14 +2,14 @@ package org.AnOzen.ulang.nodes;
 
 import java.util.HashMap;
 
-public class StateExit implements Statement{
+public class StateExit implements Statement {
     Expression expr;
 
-    public StateExit(Expression expr){
+    public StateExit(Expression expr) {
         this.expr = expr;
     }
 
-    public String toString(){
+    public String toString() {
         return "Exit(" + expr.toString() + ")";
     }
 

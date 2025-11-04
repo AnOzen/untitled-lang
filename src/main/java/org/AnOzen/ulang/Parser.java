@@ -5,11 +5,11 @@ import org.AnOzen.ulang.nodes.*;
 import java.util.ArrayList;
 
 public class Parser {
-    ArrayList<Token> tokens;
     public ArrayList<Statement> statements;
+    ArrayList<Token> tokens;
     int index = 0;
 
-    public Parser(ArrayList<Token> tks){
+    public Parser(ArrayList<Token> tks) {
         tokens = tks;
         statements = new ArrayList<>();
     }
@@ -19,22 +19,17 @@ public class Parser {
 
         Expression left;
 
-        switch (t.type){
-                case INTEGER -> {
-                    left = new ExprInt(Integer.parseInt(t.value));
-                }
-                case VAR -> {
-                    left = new ExprVar(t.value);
-                }
+        switch (t.type) {
+            case INTEGER -> left = new ExprInt(Integer.parseInt(t.value));
+            case VAR -> left = new ExprVar(t.value);
             case LPAREN -> {
-                    left = parseExpr(0);
-
-                    expectConsume(TokenType.RPAREN);
+                left = parseExpr(0);
+                expectConsume(TokenType.RPAREN);
             }
-                default -> throw new Exception("Unexpected Token `" + t + "`");
+            default -> throw new Exception("Unexpected Token `" + t + "`");
         }
 
-        while(true) {
+        while (true) {
 
             if (peek().type == TokenType.EOF || !isBinOp(peek())) return left;
 
@@ -47,8 +42,7 @@ public class Parser {
             if (prec <= precL) {
                 index--;
                 return left;
-            }
-            else {
+            } else {
                 right = parseExpr(precL + 1);
             }
 
@@ -58,8 +52,8 @@ public class Parser {
 
     }
 
-    BinOpType getBinOpType(TokenType t){
-        switch (t){
+    BinOpType getBinOpType(TokenType t) {
+        switch (t) {
             case PLUS -> {
                 return BinOpType.ADD;
             }
@@ -80,13 +74,12 @@ public class Parser {
     }
 
 
-
     public void parse() throws Exception {
-        while(index < tokens.size()){
+        while (index < tokens.size()) {
             Token current = consume();
 
             if (current.type == TokenType.EOF) break;
-            switch (current.type){
+            switch (current.type) {
                 case KEYEXIT -> statements.add(new StateExit(parseExpr(0)));
                 case KEYSET -> {
                     Token name = expectConsume(TokenType.VAR);
@@ -99,26 +92,27 @@ public class Parser {
         }
     }
 
-    Token peek(){
+    Token peek() {
         return tokens.get(index);
     }
 
-    Token consume(){
+    Token consume() {
         return tokens.get(index++);
     }
 
     Token expectConsume(TokenType expectedType) throws Exception {
-        if(peek().type != expectedType) throw new Exception(String.format("Expected %s, got %s", expectedType, peek().type));
+        if (peek().type != expectedType)
+            throw new Exception(String.format("Expected %s, got %s", expectedType, peek().type));
         return consume();
     }
 
-    boolean isBinOp(Token t){
+    boolean isBinOp(Token t) {
         return t.type == TokenType.PLUS || t.type == TokenType.MINUS || t.type == TokenType.STAR ||
                 t.type == TokenType.SLASH || t.type == TokenType.PERCENT;
     }
 
-    int getOpPrecedence(TokenType type){
-        switch (type){
+    int getOpPrecedence(TokenType type) {
+        switch (type) {
             case PLUS, MINUS -> {
                 return 1;
             }

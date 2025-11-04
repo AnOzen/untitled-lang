@@ -4,7 +4,7 @@ public class Token {
     TokenType type;
     String value;
 
-    public Token(TokenType t, String val){
+    public Token(TokenType t, String val) {
         type = t;
         value = val;
     }

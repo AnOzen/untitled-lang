@@ -17,12 +17,18 @@ public class Lexer {
         tokens = new ArrayList<>();
     }
 
+    static void main() throws Exception {
+        Lexer lex = new Lexer("example.u");
+        lex.tokenize();
+        System.out.println(lex.tokens);
+    }
+
     public void tokenize() throws Exception {
         char c;
-        while(index < rawCode.length()){
+        while (index < rawCode.length()) {
             c = consume();
 
-            if(Character.isWhitespace(c)) continue;
+            if (Character.isWhitespace(c)) continue;
 
             if (Character.isLetter(c) || c == '_') {
                 StringBuilder word = new StringBuilder(Character.toString(c));
@@ -36,38 +42,30 @@ public class Lexer {
                     case "set" -> tokens.add(new Token(TokenType.KEYSET, ""));
                     default -> tokens.add(new Token(TokenType.VAR, word.toString()));
                 }
-            } else if (Character.isDigit(c)){
+            } else if (Character.isDigit(c)) {
                 StringBuilder word = new StringBuilder(Character.toString(c));
-                while(Character.isDigit((c = peek()))){
+                while (Character.isDigit((c = peek()))) {
                     consume();
                     word.append(c);
                 }
                 tokens.add(new Token(TokenType.INTEGER, word.toString()));
-            } else if(c == '='){
+            } else if (c == '=') {
                 tokens.add(new Token(TokenType.EQ, ""));
-            }
-            else if(c == '+'){
+            } else if (c == '+') {
                 tokens.add(new Token(TokenType.PLUS, ""));
-            }
-            else if(c == '-'){
+            } else if (c == '-') {
                 tokens.add(new Token(TokenType.MINUS, ""));
-            }
-            else if(c == '*'){
+            } else if (c == '*') {
                 tokens.add(new Token(TokenType.STAR, ""));
-            }
-            else if(c == '/'){
+            } else if (c == '/') {
                 tokens.add(new Token(TokenType.SLASH, ""));
-            }
-            else if(c == '('){
+            } else if (c == '(') {
                 tokens.add(new Token(TokenType.LPAREN, ""));
-            }
-            else if(c == '%'){
+            } else if (c == '%') {
                 tokens.add(new Token(TokenType.PERCENT, ""));
-            }
-            else if(c == ')'){
+            } else if (c == ')') {
                 tokens.add(new Token(TokenType.RPAREN, ""));
-            }
-            else if (c == ';') {
+            } else if (c == ';') {
                 tokens.add(new Token(TokenType.SEMI, ""));
             } else {
                 throw new Exception(String.format("Unknown character `%s`", c));
@@ -77,25 +75,16 @@ public class Lexer {
         tokens.add(new Token(TokenType.EOF, ""));
     }
 
-
-
-    char peek(){
+    char peek() {
         if (index >= rawCode.length())
             return 0;
         return rawCode.charAt(index);
     }
 
-    char consume(){
+    char consume() {
         if (index >= rawCode.length())
             return 0;
         return rawCode.charAt(index++);
-    }
-
-
-    static void main() throws Exception {
-        Lexer lex = new Lexer("example.u");
-        lex.tokenize();
-        System.out.println(lex.tokens);
     }
 
 }

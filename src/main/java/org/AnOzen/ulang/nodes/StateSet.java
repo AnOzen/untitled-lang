@@ -2,11 +2,11 @@ package org.AnOzen.ulang.nodes;
 
 import java.util.HashMap;
 
-public class StateSet implements Statement{
+public class StateSet implements Statement {
     String name;
     Expression expr;
 
-    public StateSet(String name, Expression expr){
+    public StateSet(String name, Expression expr) {
         this.name = name;
         this.expr = expr;
     }

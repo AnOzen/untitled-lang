@@ -2,7 +2,6 @@ package org.AnOzen.ulang;
 
 import org.AnOzen.ulang.nodes.Statement;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
